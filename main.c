@@ -1,5 +1,5 @@
-#include "OOGLC_Window.h"
-
+#include "OOGLC_StartGame.h"
+#include <stdio.h>
 int main(void)
 {
 

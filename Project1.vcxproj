@@ -129,7 +129,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="glad.h" />
-    <ClInclude Include="OOGLC.h">
+    <ClInclude Include="OOGLC_Game.h" />
+    <ClInclude Include="OOGLC_StartGame.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </ClInclude>
