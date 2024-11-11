@@ -6,8 +6,40 @@
 #include "glad.h"
 
 void StartGameLoop(struct Game* game);
+void initAndRenderSquares(void* mem)
+{
+    //Check allocated memory.
+    uint64_t allocatd_mem = *((uint64_t*)mem);
+
+    mem = &((uint64_t*)mem)[1];
+    if (*(char*)mem != 'c')
+    {
+        printf("Not initialized, initializing data for all squares.\n");
+        *(char*)mem = 'c';
+        float vertices[12];
+        //*((char*)mem + sizeof(char)) = 0;
+
+    }
+    else 
+    {
+        /*
+            evaluation stage.
+        */
+        mem = &((char*)mem)[1];
+        //offset the memcheck.
 
 
+        //*((char*)mem + sizeof(char)) += 1;
+
+    }
+    printf("called initAndRenderSquares!\n");
+    printf("Alloced memory is %i\n", allocatd_mem);
+};
+void InitializeGloabls()
+{
+    init_RenderFuncMemoryVecMap();
+    AddRenderFuncEntry(&initAndRenderSquares, 32);
+}
 void StartGame(char** varg)
 {
 
@@ -37,14 +69,16 @@ void StartGame(char** varg)
     else {
         printf("Version is %i \n", version);
     }
+    
     game.is_gl_loaded = true;
+    InitializeGloabls();
     StartGameLoop(&game);
 
 }
 //GAMELOOOP
 void StartGameLoop(struct Game* game)
 {
-
+    uint32_t start = 0;
     while (!glfwWindowShouldClose(game->window)) {
         // Input
         if (glfwGetKey(game->window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -59,7 +93,13 @@ void StartGameLoop(struct Game* game)
 
         // Bind the VAO
         //glBindVertexArray(This->_VAO);
+        start = 0;
+        for (start; start < render_function_map.func_funcs.size; start++)
+        {
+            
+            CallRenderEntry(start);
 
+        }
         // Draw the triangle
 
 
