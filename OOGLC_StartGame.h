@@ -1,24 +1,29 @@
-#pragma once
+#ifndef GAMESTARTGAME
+#define GAMESTARTGAME
 #include <stdio.h>
 #include "OOGLC_Game.h"
 //#include "OOGLC_Window.h"
-
+//only composed of functions, no common header required.
 #include "glad.h"
 
 void StartGameLoop(struct Game* game);
-void initAndRenderSquares(void* mem)
+void init_AndRenderSquares(void* mem)
 {
     //Check allocated memory.
     uint64_t allocatd_mem = *((uint64_t*)mem);
 
     mem = &((uint64_t*)mem)[1];
+    
     if (*(char*)mem != 'c')
     {
         printf("Not initialized, initializing data for all squares.\n");
         *(char*)mem = 'c';
         float vertices[12];
         //*((char*)mem + sizeof(char)) = 0;
+        mem = &((char*)mem)[1];
 
+        uint64_t index= GetIndexFromFuncKey(&init_AndRenderSquares);
+        render_function_map.func_memory.func_memory_list[index].size;// this is allocated memory, old methods of accessing it is depricated.
     }
     else 
     {
@@ -29,16 +34,14 @@ void initAndRenderSquares(void* mem)
         //offset the memcheck.
 
 
-        //*((char*)mem + sizeof(char)) += 1;
-
     }
-    printf("called initAndRenderSquares!\n");
-    printf("Alloced memory is %i\n", allocatd_mem);
+    printf("called init_AndRenderSquares!\n");
+    printf("Alloced memory is %i \n", allocatd_mem);
 };
 void InitializeGloabls()
 {
     init_RenderFuncMemoryVecMap();
-    AddRenderFuncEntry(&initAndRenderSquares, 32);
+    AddRenderFuncEntry(&init_AndRenderSquares, 32);
 }
 void StartGame(char** varg)
 {
@@ -114,3 +117,4 @@ void StartGameLoop(struct Game* game)
         //std::This_thread::sleep_for(std::chrono::milliseconds(16)); // ~60 FPS
     }
 }
+#endif
